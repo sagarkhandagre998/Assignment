@@ -1,0 +1,173 @@
+/* index.css — global styles + interaction states that inline styles can't express
+   (hover, focus, :disabled, .selected) and React Flow internal overrides.
+   Design tokens are mirrored from src/theme.js as CSS variables. */
+
+:root {
+  --vai-bg: #eef1f7;
+  --vai-surface: #ffffff;
+  --vai-surface-alt: #f8fafc;
+  --vai-border: #e3e8f0;
+  --vai-border-strong: #cdd5e1;
+  --vai-text: #0f172a;
+  --vai-text-muted: #64748b;
+  --vai-brand: #6366f1;
+  --vai-brand-2: #8b5cf6;
+  --vai-radius: 10px;
+  --vai-focus-ring: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--vai-text);
+  background: var(--vai-bg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto',
+    'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: 'SFMono-Regular', Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* ---------- Form controls inside nodes ---------- */
+/* Every node field control (text/select/textarea/checkbox) shares one look. */
+.vai-node input[type='text'],
+.vai-node select,
+.vai-node textarea {
+  width: 100%;
+  padding: 7px 9px;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--vai-text);
+  background: var(--vai-surface-alt);
+  border: 1px solid var(--vai-border);
+  border-radius: 7px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.vai-node input[type='text']:hover,
+.vai-node select:hover,
+.vai-node textarea:hover {
+  border-color: var(--vai-border-strong);
+}
+
+.vai-node input[type='text']:focus,
+.vai-node select:focus,
+.vai-node textarea:focus {
+  background: var(--vai-surface);
+  border-color: var(--vai-brand);
+  box-shadow: var(--vai-focus-ring);
+}
+
+.vai-node textarea {
+  resize: vertical;
+  line-height: 1.4;
+}
+
+.vai-node input[type='checkbox'] {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--vai-brand);
+  cursor: pointer;
+}
+
+/* ---------- Node card hover / selected states ---------- */
+.vai-node {
+  transition: box-shadow 0.18s ease, transform 0.18s ease, border-color 0.18s ease;
+}
+
+.vai-node:hover {
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.14);
+  transform: translateY(-1px);
+}
+
+/* React Flow toggles .selected on the node wrapper when a node is clicked. */
+.react-flow__node.selected .vai-node {
+  box-shadow: 0 0 0 2px var(--vai-node-accent, var(--vai-brand)),
+    0 12px 30px rgba(15, 23, 42, 0.16);
+}
+
+/* ---------- React Flow internals ---------- */
+.react-flow__handle {
+  width: 11px;
+  height: 11px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.25);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.react-flow__handle:hover {
+  transform: scale(1.25);
+}
+
+.react-flow__handle-connecting {
+  transform: scale(1.3);
+}
+
+.react-flow__edge-path {
+  stroke: #94a3b8;
+  stroke-width: 2;
+}
+
+.react-flow__edge.selected .react-flow__edge-path,
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke: var(--vai-brand);
+}
+
+.react-flow__edge.animated .react-flow__edge-path {
+  stroke: var(--vai-brand);
+}
+
+.react-flow__controls {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+  border: 1px solid var(--vai-border);
+}
+
+.react-flow__controls-button {
+  background: var(--vai-surface);
+  border-bottom: 1px solid var(--vai-border);
+  color: var(--vai-text);
+}
+
+.react-flow__controls-button:hover {
+  background: var(--vai-surface-alt);
+}
+
+.react-flow__minimap {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--vai-border);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
+}
+
+.react-flow__attribution {
+  display: none;
+}
+
+/* ---------- Scrollbars ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c7cedb;
+  border-radius: 999px;
+  border: 2px solid var(--vai-bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #aab3c4;
+}
